@@ -1,0 +1,51 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.17.1
+    resource_class: xlarge
+    steps:
+      - checkout
+      - run:
+          name: Check Node.js Configuration
+          command: |
+            echo "Max old space size: "
+            node --v8-options | grep 'max-old-space-size'
+            echo "Total memory available (in bytes): "
+            node -e "console.log(os.totalmem())"
+  build-underline:
+    docker:
+      - image: cimg/node:18.17.1
+        environment:
+          NODE_OPTIONS: --max_old_space_size=8192
+    resource_class: xlarge
+    steps:
+      - checkout
+      - run:
+          name: Check Node.js Configuration
+          command: |
+            echo "Max old space size: "
+            node --v8-options | grep 'max-old-space-size'
+            echo "Total memory available (in bytes): "
+            node -e "console.log(os.totalmem())"
+  build-dash:
+    docker:
+      - image: cimg/node:18.17.1
+        environment:
+          NODE_OPTIONS: --max-old-space-size=8192
+      resource_class: xlarge
+    steps:
+      - checkout
+      - run:
+          name: Check Node.js Configuration
+          command: |
+            echo "Max old space size: "
+            node --v8-options | grep 'max-old-space-size'
+            echo "Total memory available (in bytes): "
+            node -e "console.log(os.totalmem())"
+workflows:
+  main:
+    jobs:
+      - build
+      - build-underline
+      - build-dash
