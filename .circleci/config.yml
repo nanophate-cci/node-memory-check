@@ -33,7 +33,7 @@ jobs:
       - image: cimg/node:18.17.1
         environment:
           NODE_OPTIONS: --max-old-space-size=8192
-      resource_class: xlarge
+    resource_class: xlarge
     steps:
       - checkout
       - run:
