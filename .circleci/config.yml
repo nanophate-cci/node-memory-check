@@ -7,6 +7,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: hello
+          background: true
+          command: |
+            sleep 30
+            exit 1
+      - run:
           name: Check Node.js Configuration
           command: |
             echo "Max old space size: "
