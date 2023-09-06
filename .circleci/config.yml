@@ -15,6 +15,7 @@ jobs:
       - run:
           name: Check Node.js Configuration
           command: |
+            sleep 60
             echo "Max old space size: "
             node --v8-options | grep 'max-old-space-size'
             echo "Total memory available (in bytes): "
